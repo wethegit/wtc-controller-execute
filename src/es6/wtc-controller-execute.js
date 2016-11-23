@@ -38,8 +38,8 @@ class executeControllers {
   }
 
   instanciate(data, controller, op) {
-    if (typeof this.controllersList[className] === 'function') {
-      data.instance = new this.controllersList[className](op);
+    if (typeof this.controllersList[controller] === 'function') {
+      data.instance = new this.controllersList[controller](op);
       data.initialised = true;
       return data.instance;
     } else {

@@ -1,6 +1,6 @@
 {
   "name": "wtc-controller-execute",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple class to execute a controller that binds to an HTMl element",
   "main": "dist/wtc-controller-execute.js",
   "scripts": {
