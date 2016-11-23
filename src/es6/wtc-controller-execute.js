@@ -2,11 +2,18 @@ let initiated = false,
     instance = null;
 
 class executeControllers {
-  constructor() {
+  constructor(controllersList) {
+    if (!initiated) {
+      initiated = true;
+      instance = this;
+    } else {
+      return instance;
+    }
+
     var els, objreturn;
 
+    this.controllersList = controllersList;
     els = document.querySelectorAll('[data-controller]');
-    objreturn = [];
 
     for (var i = 0; i <= els.length - 1; i++) {
       let op = els[i];
@@ -16,17 +23,10 @@ class executeControllers {
         return;
       }
 
-      let ns = op.getAttribute('data-namespace');
-      if (!ns) {
-        op.setAttribute('data-namespace', '');
-        ns = '';
-      }
       let controller = op.getAttribute('data-controller');
-      ns = this.getAddress(ns.split('.'));
-      objreturn.push(op);
 
       try {
-        this.instanciate(data, controller, ns, op);
+        this.instanciate(data, controller, op);
       } catch (_error) {
         console.warn("Error: " + _error.message);
       }
@@ -34,38 +34,16 @@ class executeControllers {
       op.data = data;
     }
 
-    return objreturn;
+    return instance;
   }
 
-  getAddress(address) {
-    var baseAddress = window;
-    for (let i in address) {
-      if (typeof baseAddress[address[i]] === "object") {
-        baseAddress = baseAddress[address[i]];
-      } else {
-        return window;
-      }
-    }
-
-    return baseAddress;
-  }
-
-  instanciate(data, controller, ns, op) {
-    if (typeof ns[controller] === 'function') {
-      data.instance = new ns[controller](op);
+  instanciate(data, controller, op) {
+    if (typeof this.controllersList[className] === 'function') {
+      data.instance = new this.controllersList[className](op);
       data.initialised = true;
       return data.instance;
     } else {
       throw new Error("The controller " + controller + " does not exist at namespace " + op.getAttribute('data-namespace'));
-    }
-  }
-
-  static init() {
-    if (!initiated) {
-      initiated = true;
-      return instance !== null ? instance : instance = new executeControllers();
-    } else {
-      return instance;
     }
   }
 }
