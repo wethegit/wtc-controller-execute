@@ -1,0 +1,18 @@
+{
+  "name": "jquery-executeControllers",
+  "homepage": "https://github.com/liamegan/jq-executeControllers",
+  "authors": [
+    "Liam Egan <liam@wethecollective.com>"
+  ],
+  "description": "A simple jQuery plugin to execute a controller that binds to an HTMl element",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
